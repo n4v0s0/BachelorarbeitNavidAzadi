@@ -9,7 +9,7 @@ N = int(sys.argv[1])
 #Ziel Ordner für N-Gram Dateien erstellen
 subprocess.Popen(["mkdir","ngramOutput"])
 #Assembly Instruktionen einlesen
-with open("verwendeterCode/asm_instructions.txt") as f:
+with open("asm_instructions.txt") as f:
 	lines = f.readlines()
 	for line in lines:
 		line = line.replace("\n","")

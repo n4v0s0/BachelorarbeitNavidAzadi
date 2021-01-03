@@ -15,8 +15,10 @@ sudo apt install tar -y
 sudo apt install texinfo -y
 sudo apt install autopoint -y
 sudo apt install glibc-source -y
-git clone https://github.com/coreutils/gnulib.git
+git clone git://git.sv.gnu.org/coreutils
+cd coreutils
 git clone git://git.savannah.gnu.org/gnulib.git
+cd ..
 pip3 install nltk
 pip3 install sklearn
 pip3 install matplotlib
