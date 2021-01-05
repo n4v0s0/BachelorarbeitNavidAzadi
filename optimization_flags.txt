@@ -58,14 +58,14 @@
 -ftree-dce
 -fcse-follow-jumps
 -fsplit-loops
--o1
+-O1
 -ftree-fre
 -fcombine-stack-adjustments
 -fcode-hoisting
 -freorder-blocks-algorithm=stc
--o3
+-O3
 -findirect-inlining
--o0
+-O0
 -fpeel-loops
 -fif-conversion2
 -ftree-coalesce-vars
@@ -87,7 +87,7 @@
 -ftree-ch
 -ftree-pta
 -foptimize-strlen
--o2
+-O2
 -fdelayed-branch
 -ftree-copy-prop
 -frerun-cse-after-loop

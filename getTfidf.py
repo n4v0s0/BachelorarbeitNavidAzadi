@@ -24,7 +24,7 @@ def computeTFIDF(tfBagOfWords, idfs):
     for word, val in tfBagOfWords.items():
         tfidf[word] = val * idfs[word]
     return tfidf
-
+print("Berechne TF-IDF-Werte...\n")
 flags = {}
 for flag in os.listdir("ngramOutput"):
     for binary in os.listdir("ngramOutput/"+flag):

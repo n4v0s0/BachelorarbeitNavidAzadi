@@ -5,10 +5,13 @@ import matplotlib.pyplot as plt
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.naive_bayes import GaussianNB
-
+print("Vergleiche ML-Klassifizierer...\n")
 dirc = "ML_Tabellen"
+counter = 0
 scoreDict = {}
 for opt in os.listdir(dirc):
+    print("Berechne ",counter,"/",len(os.listdir(dirc))
+    counter += 1
     path = os.path.join(dirc,opt)
     df = pd.read_csv(path,sep="\t")	
     features_new =  df.loc[df['optimized']  == 0]

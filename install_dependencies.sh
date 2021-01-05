@@ -22,3 +22,4 @@ cd ..
 pip3 install nltk
 pip3 install sklearn
 pip3 install matplotlib
+pip3 install pandas

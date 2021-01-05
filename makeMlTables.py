@@ -3,8 +3,11 @@ from sklearn import metrics
 import os, pandas as pd,sys,time
 from sklearn.model_selection import train_test_split
 import subprocess
+counter = 0
 subprocess.call(["mkdir", "ML_Tabellen"])
 for opt_flag in os.listdir("tfidfOutput"):
+    print("Berechne ML-Tabellen: ",counter,"/",len(os.listdir("tfidfOutput")),"\n")
+    counter += 1
     with open(os.path.join("tfidfOutput",opt_flag), "r") as inp:
         top_5 = inp.readlines()
     top_5 = top_5[2:7]

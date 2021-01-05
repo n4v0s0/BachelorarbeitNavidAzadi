@@ -15,7 +15,10 @@ with open("asm_instructions.txt") as f:
 		line = line.replace("\n","")
 		inst.append(line.lower())
 #Durch alle Binaries durch iterieren
+counter = 1
 for dirc in os.listdir("binaries"):
+    print("Berechne ",str(N),"-Gramme: ",str(counter),"/",str(len(os.listdir("binaries/"+dirc))),"\n")
+    counter += 1
     path = os.path.join("binaries",dirc)
     #dabei befindet sich in jedem Ordner eine Menge von Binaries die mit einer bestimmten Optimierung erstellt worden sind
     subprocess.Popen(["mkdir","ngramOutput/"+dirc])
