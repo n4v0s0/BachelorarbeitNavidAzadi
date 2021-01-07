@@ -1,8 +1,36 @@
+In diesem Repository befinden sich Python-Skripte, mit denen die in der Bachelorarbeit "Automatisierte Erkennung von Compiler-Optimierungen" vorgestellten Ergebnisse reproduziert werden können.
+Dabei wurde der komplette Code von mir selbst, Navid Azadi, geschrieben. Eine Ausnahme hierbei bietet die Funktion "plot_confusion_matrix" in randomForest.py, welche folgender Quelle entnommen worden ist:
+https://www.kaggle.com/grfiv4/plot-a-confusion-matrix
+
+Durch Ausführen der weiter unten genannten Schritte werden die Schritte der Arbeit rekonstruiert, welche zu den Endergebnissen geführt haben. Dabei wird das Repository der Gnu-Core-Utils gecloned, anhand
+dessen dann per Skript die Binaries erstellt werden, welche als Testmenge für die Experimente dieser Arbeit hergehalten haben. Diese werden dann durch weitere Skripts analysiert. Wurden alle Skripts in der 
+vorgegebenen Reihenfolge ausgeführt, so erhält man einen Ordner "ML-Diagramme" in denen zum einen die ML-Metriken für die verschiedenen Optimierungen in Form von Text-Dateien gespeichert werden und zum anderen
+Graphen in Form von PNG-Dateien die diese Ergebnisse wiederspiegeln. Zusätzlich werden in einem seperaten Ordner Konfusionsmatrizen für jede Optimierung gespeichert.
+
+Die so erhaltenen Ergebnisse werden sich in manchen, unwesentlichen, Punkten von den in der Arbeit gezeigten Ergebnissen unterscheiden. Dies liegt daran, dass der ursprüngliche Code der von mir geschrieben
+wurde aufgrund technischer Probleme nicht mehr verfügbar ist. Jedoch stellt dies meines Ermessens nach kein Problem dar, da das zentrale Ergebnis der Arbeit durch den hier präsentierten Code reproduziert und bestätigt 
+wird. So werden in den Ergebnissen, die durch den hier zur Verfügung gestellten Code entstehen, die selben sieben Optimierungen mit perfekter Rate korrekt erkannt, während eine ähnlich hohe Menge von
+Optimierungen überhaupt nicht erkannt werden. Unterschiede lassen sich vorallem bei den Optimierungen finden, die F1-Werte zwischen 1.0 und 0.0 erhalten haben. Während "Crossjumping" und
+"O2" in beiden Fällen sehr ähnliche Werte haben, wird "Expensive Optimizations" in den hier erstellten Ergebnissen weit aus besser klassifiziert als in der Arbeit. Die Optimierungen die in der Arbeit
+sehr geringe F1-Werte hatten, werden hier wiederum oft gar nicht erkannt. Da diese jedoch in der Arbeit ebenfalls als "nicht klassifizierbar" eingeordnet wurden, sind die Unterschiede hier rein numerischer
+Natur. Genauso sind die durch TF-IDF gewählten N-Gramme ausnahmslos die gleichen. Unterschiede lassen sich nur in den numerischen Werten der TF-IDF Werte finden, welche hier meist größer, im gegenseitigen Verhältnis jedoch 
+gleich denen der Arbeit sind.
+Aufgrund dieser Punkte wurde darauf verzichtet die Werte in der Arbeit an die, durch die hier zur Verfügung gestellten Skripte erstellten, Werte anzupassen. 
+
+Da der hier gezeigte Code nicht Teil der eigentlichen Bachelorarbeit ist und nur dafür da ist um die in der Arbeit vorgestellten Aussagen zu belegen, wurde auf erläuternde Kommentare innerhalb des
+Codes verzichtet. Die Funktionsweise der einzelnen Skripte werden weiter unten erläutert.
+
+
+#############
+ANLEITUNG ZUR KORREKTEN AUSÜHRUNG DER SKRIPTE
+#############
+
+
 (Folgende befehle alle im geclonten Repository ausführen)
 Aufruf-ReihenFolge:
 1. bash install_dependencies.sh
 2. python3 compile.py
-3. python3 getNgrams.py N                 <- N = parameter der besagt was für N-Grams man will
+3. python3 getNgrams.py N                 <- N = parameter der besagt, mit welchem N die gewünschten N-Gramme berechnet werden sollen
 4. python3 getTfidf.py
 5. python3 makeMlTables.py
 6. python3 crossVal.py
@@ -14,30 +42,33 @@ Der hier gezeigte Ablauf wurde auf einer Virtual Machine mit Ubuntu 20.04
 erfolgreich getestet. 
 #############
 
+
+
+############
+ERLÄUTERUNG DER EINZELNEN SKRIPTE
+############
+
+install_dependencies.sh:
+->Downloadet die benötigten Repositories und Installiert alle Programme/Bibliotheken die für die folgenden Skripts benötigt werden.
+ 
 getTfidf.py:
-muss im selben ordner ausgeführt werden in dem sich "outputNgram", also der Ordner mit den NGRAM-Dateien befindet
 -> erstellt im selben Ordner in dem tf_idf.py sich befindet einen Ausgabe-Ordner in dem die TFIDF-Dateien der Optimierungen sich befinden
 
 getNgrams.py:
-muss im selben ordner ausgeführt werden in dem sich "binaries" befindet, also der Ordner in dem die Unterordner mit den jeweils unterschiedlich optimierten Binaries befindet
-braucht im selben ordner "asm_instructions.txt"
-kriegt als erstes argument N für N-Grams
+!!!kriegt als erstes argument N für N-Grams
 -> erstellt Ordner "outputNgram" in dem sich die N-Gram Dateien der jeweiligen Binaries in unterordnern der optimierungen befinden
 
 compile.py:
-muss im selben Ordner ausgeführt werden in dem sich "optimization_flags.txt" und das geklonte coreutils repository befindet
 -> erstellt im selben ordner einen ordner "binaries" in dem für jede optimierung unterordner erstellt werden in welche die binaries verschoben werden
 
-
 crossVal.py:
-muss im selben Ordner ausgeführt werden in dem sich "ML_Tabellen" befindet.
-berechnet anhand der aktuellen Daten in "ML_Tabellen" Kreuzvalidierungswerte für Naive Bayes, Decision Tree und Random Forest Klassifzierer. Erzeugt ein Matplot Fenster, dass manuell gespeichert werden kann.
+-> berechnet anhand der aktuellen Daten in "ML_Tabellen" Kreuzvalidierungswerte für Naive Bayes, Decision Tree und Random Forest Klassifzierer. Erzeugt ein Matplot Fenster, dass manuell gespeichert werden kann.
 
 randomForest.py
-muss im selben Ordner ausgeführt werden in dem sich "ML_Tabellen" befindet.
-berechnet anhand der Daten in "ML_Tabellen" die Accuracy, recall, precision und f1 Werte für einen RandomForest Klassifizierer. Speichert Balken-Diagramme in "ML-Diagramme". Speicher für jede Optimierung Konfusionsmatrize in Unterordner von ML_Tabellen
+-> berechnet anhand der Daten in "ML_Tabellen" die Accuracy, recall, precision und f1 Werte für einen RandomForest Klassifizierer. Speichert Balken-Diagramme in "ML-Diagramme".
+-> Speichert für jede Optimierung Konfusionsmatrizen in Unterordner von ML_Tabellen
+-> erstellt Textdateien in denen die genauen Werte der ML-Metriken für alle Optimierungen gespeichert werden
 
 makeMlTables.py:
-muss im selben Ordner ausgeführt werden in dem sich "tfidfOutput" befindet.
-erstellt für jede Optimierung eine Tabelle, welche von den Machine-Learning Klassifizieren als Input-Data verwendet wird. Speichert diese in "ML_Tabellen"
+-> erstellt für jede Optimierung eine Tabelle, welche von den Machine-Learning Klassifizieren als Input-Data verwendet wird. Speichert diese in "ML_Tabellen"
 
