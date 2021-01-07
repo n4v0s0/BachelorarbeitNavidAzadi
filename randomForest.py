@@ -10,6 +10,7 @@ from sklearn.model_selection import cross_val_score
 from sklearn.metrics import plot_confusion_matrix
 from sklearn.metrics import precision_score,recall_score,f1_score,accuracy_score
 import subprocess
+import time
 def plot_confusion_matrix(cm,
                           opt,
                           target_names,
@@ -62,7 +63,8 @@ def plot_confusion_matrix(cm,
 def printDict(inp, write = False, fout = None):
     out = sorted(inp.items(), key=lambda x: x[1], reverse=True)
     if write == True:
-        with open(fout,"w") as f:
+        subprocess.call(["touch","ML-Diagramme/"+fout])
+        with open("ML-Diagramme/"+fout,"w") as f:
             for i in out:
                 f.write(str(i[0])+" "+str(i[1])+"\n")
     else:
@@ -100,10 +102,14 @@ recallDict = dict.fromkeys(os.listdir(dirc), 0)
 precisionDict = dict.fromkeys(os.listdir(dirc), 0)
 f1Dict = dict.fromkeys(os.listdir(dirc), 0)
 accuracyDict = dict.fromkeys(os.listdir(dirc), 0)
-confDict = dict.fromkeys(os.listdir(dirc), [[0,0],[0,0]])  
+confDict = {}
 test_size_val = 0.33
+counter = 0
 for j in range(10):
+    counter = 0
     for opt in os.listdir(dirc):
+        print("Durchlauf ",j,": Berechne ",counter,"/",len(os.listdir(dirc)),"\n")
+        counter += 1
         path = os.path.join(dirc, opt)
         df = pd.read_csv(path, sep="\t")
         features = df[df.columns[:5]].values
@@ -117,23 +123,24 @@ for j in range(10):
         f1Dict[opt] += f1_score(target_test,target_predict,zero_division=0)
         accuracyDict[opt] += accuracy_score(target_test,target_predict)
         matrix = metrics.confusion_matrix(target_test, target_predict)
-        confDict[opt] = matAdd(confDict[opt], matrix) 
+        confDict[opt] = matrix
 for i in f1Dict:
     precisionDict[i] = precisionDict[i] / 10
     accuracyDict[i] = accuracyDict[i] / 10
     recallDict[i] = recallDict[i] / 10
     f1Dict[i] = f1Dict[i] / 10
-    confDict[i][0][0] = round(confDict[i][0][0] / 10, 2)
-    confDict[i][0][1] = round(confDict[i][0][1] / 10, 2)
-    confDict[i][1][0] = round(confDict[i][1][0] / 10, 2)
-    confDict[i][1][1] = round(confDict[i][1][1] / 10, 2)
+
 subprocess.Popen(["mkdir", "ML-Diagramme"])
+printDict(precisionDict, write = True, fout = "precisionVals")
+printDict(accuracyDict, write = True, fout = "accuracyVals")
+printDict(recallDict, write = True, fout = "recallVals")
+printDict(f1Dict, write = True, fout = "f1Vals")
 ##Precision Bar
 keys, values = barLists(precisionDict)
 y_pos = np.arange(len(keys))
 plt.bar(y_pos, values)
 plt.xticks(y_pos, keys,fontsize=20)
-plt.bar(y_pos, values, color=['red', 'green','black','black','black','black'])
+plt.bar(y_pos, values)
 plt.xlabel("Precision Werte",fontsize=20)
 plt.ylabel('Anzahl von Optimierungen mit jeweiligem Wert',fontsize=20)
 plt.yticks(fontsize=20)
@@ -146,7 +153,7 @@ keys, values = barLists(accuracyDict)
 y_pos = np.arange(len(keys))
 plt.bar(y_pos, values)
 plt.xticks(y_pos, keys,fontsize=20)
-plt.bar(y_pos, values, color=['red', 'green','black','black','black','black'])
+plt.bar(y_pos, values)
 plt.xlabel("Accuracy Werte",fontsize=20)
 plt.ylabel('Anzahl von Optimierungen mit jeweiligem Wert',fontsize=20)
 plt.yticks(fontsize=20)
@@ -159,7 +166,7 @@ keys, values = barLists(recallDict)
 y_pos = np.arange(len(keys))
 plt.bar(y_pos, values)
 plt.xticks(y_pos, keys,fontsize=20)
-plt.bar(y_pos, values, color=['red', 'green','black','black','black','black'])
+plt.bar(y_pos, values)
 plt.xlabel("Recall Werte",fontsize=20)
 plt.ylabel('Anzahl von Optimierungen mit jeweiligem Wert',fontsize=20)
 plt.yticks(fontsize=20)
@@ -172,7 +179,7 @@ keys, values = barLists(f1Dict)
 y_pos = np.arange(len(keys))
 plt.bar(y_pos, values)
 plt.xticks(y_pos, keys,fontsize=20)
-plt.bar(y_pos, values, color=['red', 'green','black','black','black','black'])
+plt.bar(y_pos, values)
 plt.xlabel("f1 Werte",fontsize=20)
 plt.ylabel('Anzahl von Optimierungen mit jeweiligem Wert',fontsize=20)
 plt.yticks(fontsize=20)

@@ -10,9 +10,9 @@ Aufruf-ReihenFolge:
 
 
 #############
-
-Gnu-Coreutils: 
-git clone https://github.com/coreutils/coreutils.git
+Der hier gezeigte Ablauf wurde auf einer Virtual Machine mit Ubuntu 20.04
+erfolgreich getestet. 
+#############
 
 getTfidf.py:
 muss im selben ordner ausgeführt werden in dem sich "outputNgram", also der Ordner mit den NGRAM-Dateien befindet

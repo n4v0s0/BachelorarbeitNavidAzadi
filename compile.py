@@ -28,7 +28,8 @@ for flag in flags:
     flag = flag.replace("\n","")
     args = flag + " -frecord-gcc-switches"
     print("\n\n"+args+"\n\n")
-    subprocess.call(["mkdir","binaries/"+flag])
+    flag_name = flag.replace("-","")
+    subprocess.call(["mkdir","binaries/"+flag_name])
     try:
         os.chdir("coreutils")
         subprocess.call(["./configure","CFLAGS="+args])
