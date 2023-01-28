@@ -1,16 +1,3 @@
-In diesem Repository befinden sich Python-Skripte, mit denen die in der Bachelorarbeit "Automatisierte Erkennung von Compiler-Optimierungen" vorgestellten Ergebnisse reproduziert werden können.
-Dabei wurde der komplette Code von mir selbst, Navid Azadi, geschrieben. Eine Ausnahme hierbei bietet die Funktion "plot_confusion_matrix" in randomForest.py, welche folgender Quelle entnommen worden ist:
-https://www.kaggle.com/grfiv4/plot-a-confusion-matrix
-
-Durch Ausführen der weiter unten genannten Schritte werden die Schritte der Arbeit rekonstruiert, welche zu den Endergebnissen geführt haben. Dabei wird das Repository der Gnu-Core-Utils gecloned, anhand
-dessen dann per Skript die Binaries erstellt werden, welche als Testmenge für die Experimente dieser Arbeit hergehalten haben. Diese werden dann durch weitere Skripts analysiert. Wurden alle Skripts in der 
-vorgegebenen Reihenfolge ausgeführt, so erhält man einen Ordner "ML-Diagramme" in denen zum einen die ML-Metriken für die verschiedenen Optimierungen in Form von Text-Dateien gespeichert werden und zum anderen
-Graphen in Form von PNG-Dateien die diese Ergebnisse wiederspiegeln. Zusätzlich werden in einem seperaten Ordner Konfusionsmatrizen für jede Optimierung gespeichert.
- 
-Da der hier gezeigte Code nicht Teil der eigentlichen Bachelorarbeit ist und nur dafür da ist um die in der Arbeit vorgestellten Aussagen zu belegen, wurde auf erläuternde Kommentare innerhalb des
-Codes verzichtet. Die Funktionsweise der einzelnen Skripte werden weiter unten erläutert.
-
-
 #############
 ANLEITUNG ZUR KORREKTEN AUSÜHRUNG DER SKRIPTE
 #############
