@@ -6,17 +6,7 @@ Durch Ausführen der weiter unten genannten Schritte werden die Schritte der Arb
 dessen dann per Skript die Binaries erstellt werden, welche als Testmenge für die Experimente dieser Arbeit hergehalten haben. Diese werden dann durch weitere Skripts analysiert. Wurden alle Skripts in der 
 vorgegebenen Reihenfolge ausgeführt, so erhält man einen Ordner "ML-Diagramme" in denen zum einen die ML-Metriken für die verschiedenen Optimierungen in Form von Text-Dateien gespeichert werden und zum anderen
 Graphen in Form von PNG-Dateien die diese Ergebnisse wiederspiegeln. Zusätzlich werden in einem seperaten Ordner Konfusionsmatrizen für jede Optimierung gespeichert.
-
-Die so erhaltenen Ergebnisse werden sich in manchen, unwesentlichen, Punkten von den in der Arbeit gezeigten Ergebnissen unterscheiden. Dies liegt daran, dass der ursprüngliche Code der von mir geschrieben
-wurde aufgrund technischer Probleme nicht mehr verfügbar ist. Jedoch stellt dies meines Ermessens nach kein Problem dar, da das zentrale Ergebnis der Arbeit durch den hier präsentierten Code reproduziert und bestätigt 
-wird. So werden in den Ergebnissen, die durch den hier zur Verfügung gestellten Code entstehen, die selben sieben Optimierungen mit perfekter Rate korrekt erkannt, während eine ähnlich hohe Menge von
-Optimierungen überhaupt nicht erkannt werden. Unterschiede lassen sich vorallem bei den Optimierungen finden, die F1-Werte zwischen 1.0 und 0.0 erhalten haben. Während "Crossjumping" und
-"O2" in beiden Fällen sehr ähnliche Werte haben, wird "Expensive Optimizations" in den hier erstellten Ergebnissen weit aus besser klassifiziert als in der Arbeit. Die Optimierungen die in der Arbeit
-sehr geringe F1-Werte hatten, werden hier wiederum oft gar nicht erkannt. Da diese jedoch in der Arbeit ebenfalls als "nicht klassifizierbar" eingeordnet wurden, sind die Unterschiede hier rein numerischer
-Natur. Genauso sind die durch TF-IDF gewählten N-Gramme ausnahmslos die gleichen. Unterschiede lassen sich nur in den numerischen Werten der TF-IDF Werte finden, welche hier meist größer, im gegenseitigen Verhältnis jedoch 
-gleich denen der Arbeit sind.
-Aufgrund dieser Punkte wurde darauf verzichtet die Werte in der Arbeit an die, durch die hier zur Verfügung gestellten Skripte erstellten, Werte anzupassen. 
-
+ 
 Da der hier gezeigte Code nicht Teil der eigentlichen Bachelorarbeit ist und nur dafür da ist um die in der Arbeit vorgestellten Aussagen zu belegen, wurde auf erläuternde Kommentare innerhalb des
 Codes verzichtet. Die Funktionsweise der einzelnen Skripte werden weiter unten erläutert.
 
